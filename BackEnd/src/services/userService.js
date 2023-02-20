@@ -22,4 +22,29 @@ async function findUser() {
     return rows;
 }
 
-export default {insertUser, findUser};
+async function updateUser(userName, email, password, idUser) {
+    const conn =  await database.connect();
+
+    const sql = 'UPDATE users_tbl SET user_name = ?, email = ?, user_password = ? WHERE user_id = ?'
+    const dataUser = [userName, email, password, idUser];
+
+    await conn.query(sql, dataUser);
+
+    console.log(userName, email, password);
+
+
+    conn.end();
+}
+
+async function deleteUser(idUser) {
+    const conn = await database.connect();
+
+    const sql = 'DELETE from users_tbl WHERE user_id = ?';
+    const dataUser = [idUser];
+
+    await conn.query(sql, dataUser);
+
+    conn.end();
+}
+
+export default {insertUser, findUser, updateUser, deleteUser};

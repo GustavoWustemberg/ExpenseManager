@@ -40,4 +40,35 @@ router.get('/', async (request, response) => {
       }
 });
 
+router.put('/', [
+  body('email').isEmail().withMessage('Informe um Email válido'),
+  body('password').isStrongPassword({ minLength: 8, minUppercase: 1, minSymbols: 1, minNumbers: 1 }).withMessage('A senha deve conter no mínimo 8 caracteres. Podendo ser letras maiúsculas ou minúsculas, números e caracteres especiais'),
+], async (request, response) => {
+  const { userName, email, password, idUser } = request.body;
+
+  const erros = validationResult(request);
+
+  if(!erros.isEmpty()) {
+      return response.status(400).json({message: erros.array()});
+  }
+
+  try {
+      await db.updateUser(userName, email, password, idUser);
+      response.status(201).json({message: 'Usuário atualizado com sucesso'});
+  } catch(err) {
+      response.status(500).json({message:`Encontramos um erro: ${err}`})
+  }
+});
+
+router.delete('/:idUser', async (request, response) => {
+  const {idUser} = request.params;
+  db.deleteUser(idUser);
+
+  try {
+    response.status(201).json({messege: 'Usuário deletado com sucesso'});
+  } catch(err) {
+    response.status(500).json({messege: `Encontramos um erro: ${err}`})
+  }
+})
+
 export default router;
