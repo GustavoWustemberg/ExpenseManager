@@ -1,10 +1,14 @@
 import express from "express";
 import user from './controllers/userController.js';
 import revenue from './controllers/revenueController.js';
+import login from './controllers/loginController.js';
+import expenditure from "./controllers/expenditureController.js";
 
 const router = express.Router();
 
 router.use('/user', user);
 router.use('/revenue', revenue);
+router.use('/expenditure', expenditure);
+router.use('/login', login);
 
 export default router;

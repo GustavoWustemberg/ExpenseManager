@@ -2,6 +2,7 @@ import express, { response } from "express";
 import { body, validationResult } from "express-validator";
 import { request } from "express";
 import db from "../services/userservice.js";
+import { sendEmail } from "../helpers/createUserEmail.js";
 
 const router = express.Router();
 
@@ -20,6 +21,8 @@ router.post('/', [
     try {
         await db.insertUser(userName, email, password);
         response.status(201).json({message: 'Usuário cadastrado com sucesso'});
+        await sendEmail(email, userName)
+        console.log(sendEmail)
     } catch(err) {
         response.status(500).json({message:`Encontramos um erro: ${err}`})
     }
@@ -69,6 +72,6 @@ router.delete('/:idUser', async (request, response) => {
   } catch(err) {
     response.status(500).json({messege: `Encontramos um erro: ${err}`})
   }
-})
+});
 
 export default router;
