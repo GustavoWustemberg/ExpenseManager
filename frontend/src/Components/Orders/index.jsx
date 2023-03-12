@@ -8,26 +8,28 @@ import TableRow from '@mui/material/TableRow';
 import Title from '../Title/index.jsx';
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+function createData(id, data, nome, valor) {
+  return { id, data, nome, valor };
 }
 
 const rows = [
   createData(
     0,
-    '16 Mar, 2019',
-    'Elvis Presley',
-    'Tupelo, MS',
-    'VISA ⠀•••• 3719',
-    312.44,
+    '15 Mar, 2019',
+    'Internet',
+    '99,90',
   ),
   createData(
     1,
     '16 Mar, 2019',
-    'Paul McCartney',
-    'London, UK',
-    'VISA ⠀•••• 2574',
-    866.99,
+    'Cartão de crédito',
+    '100,00',
+  ),
+  createData(
+    3,
+    '16 Mar, 2019',
+    'Roletadas',
+    '150,00',
   ),
 ];
 
@@ -42,21 +44,17 @@ export default function Orders() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell>Data</TableCell>
+            <TableCell>Nome</TableCell>
+            <TableCell>Valor</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+              <TableCell>{row.data}</TableCell>
+              <TableCell>{row.nome}</TableCell>
+              <TableCell>{`R$${row.valor}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>

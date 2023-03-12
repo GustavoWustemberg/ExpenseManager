@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport(config);
 
 async function sendEmail(email, userName) {
     const mailSend = await transporter.sendMail({
-        subject: `Redefinição de senha - Expense Manager`,
+        subject: `Criação de conta - Expense Manager`,
         from: `Suporte Expense Manager <managerexpense89@gmail.com>`,
         to: `${email}`,
         html: `

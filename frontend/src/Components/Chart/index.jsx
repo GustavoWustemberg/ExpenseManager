@@ -1,26 +1,54 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from '../Title/index.jsx';
+import api from '../../Service/index.js';
 
 // Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
-}
 
-const data = [
-  createData('1', 0),
-  createData('5', 500),
-  createData('10', 20),
-  createData('15', 15),
-  createData('16', 50),
-  createData('18', 70),
-  createData('20', 300),
-  createData('25', 1000),
-];
 
 export default function Chart() {
+  const [expenditure, setExpenditure] = useState([]);
+
+  useEffect(() => {
+    async function getExpenditure() {
+      const { data } = await api.get('/expenditure');
+      setExpenditure(data);
+    }
+    getExpenditure();
+  }, []);
+
+  const currentMonth = new Date().getMonth() + 1;
+  const monthToFilter = currentMonth;
+
+  // Filtra as despesas pelo mês
+  const filteredData = expenditure.filter(expenditure => {
+    const month = new Date(expenditure.date_expenditure).getMonth() + 1;
+    return month === monthToFilter;
+  });
+
+  // Agrupa as despesas por dia
+  const newData = filteredData.reduce((acc, expenditure) => {
+    const day = new Date(expenditure.date_expenditure).getDate();
+    if (typeof acc[day] === 'undefined') {
+      acc[day] = {
+        day: day,
+        amount_expenditure: 0
+      };
+    }
+    acc[day].amount_expenditure += parseFloat(expenditure.amount_expenditure);
+    return acc;
+  }, []).filter(Boolean);
+
   const theme = useTheme();
+
+  function createData(time, amount) {
+    return { time, amount };
+  }
+
+  const data = newData.map(item => createData(item.day, item.amount_expenditure));
+
 
   return (
     <React.Fragment>

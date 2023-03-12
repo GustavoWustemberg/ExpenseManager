@@ -20,8 +20,11 @@ router.post('/', [
 
     try {
         await db.insertUser(userName, email, password);
-        response.status(201).json({message: 'Usuário cadastrado com sucesso'});
-        await sendEmail(email, userName)
+        
+        if(response.status(201)){
+          await sendEmail(email, userName)
+          response.status(201).json({message: 'Usuário cadastrado com sucesso'});
+        }
         console.log(sendEmail)
     } catch(err) {
         response.status(500).json({message:`Encontramos um erro: ${err}`})

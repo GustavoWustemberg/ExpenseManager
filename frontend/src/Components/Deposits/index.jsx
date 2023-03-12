@@ -7,12 +7,16 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+export default function Deposits(props) {
+
+  const number = props.totalRevenue;
+  const formattedNumber = number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
   return (
     <React.Fragment>
       <Title>Total de Renda</Title>
       <Typography component="p" variant="h4">
-        R$1,024.00
+        {formattedNumber}
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={preventDefault}>

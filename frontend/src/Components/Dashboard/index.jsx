@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -15,27 +16,41 @@ import Link from '@mui/material/Link';
 import Chart from '../Chart/index.jsx';
 import Deposits from '../Deposits/index.jsx';
 import Orders from '../Orders/index.jsx';
+import api from '../../Service/index.js';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="#">
-        Expense Manager
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="#">
+//         Expense Manager
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function DashboardContent(props) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const [totalRevenue, setTotalRevenue] = useState([]);
+
+  useEffect(() => {
+    async function getAllAmounts() {
+      const { data } = await api.get('/all-amounts');
+      const MonthlyAmount = parseFloat(data[0].monthly_amount);
+      const ExtraIncome = parseFloat(data[0].extra_income);
+      const AmountExpenditure = parseFloat(data[0]['SUM(amount_expenditure)']);
+      setTotalRevenue(MonthlyAmount + ExtraIncome - AmountExpenditure);
+    }
+    getAllAmounts();
+  }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -78,7 +93,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <Deposits totalRevenue={totalRevenue} />
                 </Paper>
               </Grid>
               {/* Recent Orders */}
@@ -88,7 +103,7 @@ function DashboardContent() {
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
+            {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>
       </Box>
