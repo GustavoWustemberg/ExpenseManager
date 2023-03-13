@@ -14,6 +14,7 @@ function BasicExample() {
           <Nav className="me-auto">
             <Link to="/" className='nav-link'>Dashboard</Link>
             <Link to="/renda-despesas" className='nav-link'>Renda e Despesas</Link>
+            <Link to="/historico-despesas" className='nav-link'>Histórico de despesas</Link>
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">

@@ -1,43 +1,43 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
+import { useState, useEffect } from 'react';
+import api from '../../Service/index.js';
+import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from '../Title/index.jsx';
-
-// Generate Order Data
-function createData(id, data, nome, valor) {
-  return { id, data, nome, valor };
-}
-
-const rows = [
-  createData(
-    0,
-    '15 Mar, 2019',
-    'Internet',
-    '99,90',
-  ),
-  createData(
-    1,
-    '16 Mar, 2019',
-    'Cartão de crédito',
-    '100,00',
-  ),
-  createData(
-    3,
-    '16 Mar, 2019',
-    'Roletadas',
-    '150,00',
-  ),
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import { formatDate } from '../../Utils/formatDate.js';
 
 export default function Orders() {
+  const [expenditure, setExpenditure] = useState([]);
+
+  useEffect(() => {
+    async function getExpenditure() {
+      const { data } = await api.get('/expenditure');
+      setExpenditure(data);
+    }
+    getExpenditure();
+  }, []);
+
+  console.log(expenditure)
+  // const data = newData.map(item => createData(item.day, item.amount_expenditure));
+  
+  function createData(id, data, nome, valor) {
+    return { id, data, nome, valor };
+  }
+  
+  const rows = expenditure.slice(-3).map(expenditure => createData(
+    expenditure.expenditure_id,
+    formatDate(expenditure.date_expenditure),
+    expenditure.name_expenditure,
+    expenditure.amount_expenditure,
+  ));  
+
+  function preventDefault(event) {
+    event.preventDefault();
+  }
   return (
     <React.Fragment>
       <Title>Despesas Recentes</Title>
@@ -59,7 +59,7 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+      <Link className='MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root p-top-10' to="historico-despesas">
         Ver mais
       </Link>
     </React.Fragment>

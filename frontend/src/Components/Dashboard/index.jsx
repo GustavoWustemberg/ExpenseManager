@@ -18,19 +18,6 @@ import Deposits from '../Deposits/index.jsx';
 import Orders from '../Orders/index.jsx';
 import api from '../../Service/index.js';
 
-// function Copyright(props) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="#">
-//         Expense Manager
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
 const mdTheme = createTheme();
 
 function DashboardContent(props) {
@@ -103,7 +90,6 @@ function DashboardContent(props) {
                 </Paper>
               </Grid>
             </Grid>
-            {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>
       </Box>
