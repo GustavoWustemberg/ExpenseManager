@@ -2,7 +2,7 @@ import db from '../repository/conection.js';
 
 async function selectLogin(email, password) {
     const conn = await db.connect();
-    const sql = 'SELECT email, user_password FROM users_tbl WHERE email = ? AND user_password = ?';
+    const sql = 'SELECT email, user_name, user_id FROM users_tbl WHERE email = ? AND user_password = ?';
     const dataLogin = [email, password];
     const [rows] = await conn.query(sql, dataLogin);
     conn.end();

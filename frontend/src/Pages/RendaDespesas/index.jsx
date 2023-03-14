@@ -20,7 +20,7 @@ function RendaDespesas(props) {
   }, [totalRevenue]);
 
   return (
-    <div className="d-flex justify-content-center align-items-center hegth-80vh">
+    <div className="d-flex justify-content-center align-items-center hegth-80vh mobile-renda-despesas">
       <div className="cards-rd">
         <Card amountValue={totalRevenue} title="Renda" />
       </div>

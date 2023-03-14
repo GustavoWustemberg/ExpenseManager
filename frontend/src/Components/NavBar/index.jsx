@@ -5,6 +5,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 
 function BasicExample() {
+  function hadleLogout() {
+    sessionStorage.clear();
+    window.location.reload(true);
+  }
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -15,17 +20,9 @@ function BasicExample() {
             <Link to="/" className='nav-link'>Dashboard</Link>
             <Link to="/renda-despesas" className='nav-link'>Renda e Despesas</Link>
             <Link to="/historico-despesas" className='nav-link'>Histórico de despesas</Link>
-            {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
+          </Nav>
+          <Nav>
+            <Link to="/login" onClick={hadleLogout} className='btn btn-primary'>Sair</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

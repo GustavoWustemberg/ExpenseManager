@@ -1,7 +1,7 @@
 import Dashboard from '../../Components/Dashboard/index.jsx';
 
 function Home() {
-    const UserName = "Teste"
+    const UserName = sessionStorage.getItem('userName');
 
     return (
         <>

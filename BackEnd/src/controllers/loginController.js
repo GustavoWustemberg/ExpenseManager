@@ -12,7 +12,7 @@ router.post('/', [
 ], async (request, response) => {
     const { email, password } = request.body;
     const errors = validationResult(request);
-    const results = await db.selectLogin(email, password);
+    const results = await db.selectLogin(email, password,);
 
     if (!errors.isEmpty()) {
         return response.status(400).json({ message: errors.array() });
@@ -23,8 +23,8 @@ router.post('/', [
         if (results == 0) {
             return response.status(401).json({ message: `Usuário ou senha inválido` });
         } else {
-            const { email, userName } = results[0];
-            const token = generateToken(email, userName);
+            const { email, user_name, user_id } = results[0];
+            const token = generateToken(email, user_name, user_id);
             response.status(200).json({ message: 'Login efetuado com sucesso', token });
         }
     }

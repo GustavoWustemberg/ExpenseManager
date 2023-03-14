@@ -1,7 +1,22 @@
 .hegth-80vh {
     height: 80vh;
 }
+.hegth-75vh {
+    height: 75vh;
+}
 
 .cards-rd {
     margin: 0 20px;
+}
+
+@media screen and (max-width: 468px) {
+    .mobile-renda-despesas {
+        flex-direction: column;
+    }
+    .cards-rd {
+        margin: 20px 0;
+    }
+    .navbar-nav {
+        margin-top: 15px;
+    }
 }
