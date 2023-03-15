@@ -1,4 +1,4 @@
-import database from "../repository/conection.js";
+import database from "../repository/connection.js";
 
 async function insertRevenue(codUser, monthlyAmount, extraIncome) {
     const conn = await database.connect();

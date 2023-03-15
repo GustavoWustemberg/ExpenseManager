@@ -179,6 +179,7 @@ export default function Login() {
                         </Box>
                     </Box>
                 </Container>
+                <div className="loading">{loading}</div>
             </ThemeProvider>
             <ToastContainer />
         </div>

@@ -19,7 +19,7 @@ SELECT * FROM type_expenditure_tbl;
 INSERT INTO expenditure_tbl (name_expenditure, amount_expenditure, FK_cod_user_expenditure, FK_type_expenditure, date_expenditure) VALUES
 ("Internet", 100.00, 1, 1, "2023-03-10T03:00:00.000Z"),
 ("Compra de Pizza", 54.00, 1, 2, now());
-SELECT * FROM expenditure_tbl;
+SELECT * FROM expenditure_tbl where FK_cod_user_expenditure = 1;
 
 # Exemplo de JOIN em todas as tabelas
 SELECT user_name, monthly_amount, extra_income, amount_expenditure FROM users_tbl

@@ -1,4 +1,4 @@
-import db from '../repository/conection.js';
+import db from '../repository/connection.js';
 
 async function selectLogin(email, password) {
     const conn = await db.connect();

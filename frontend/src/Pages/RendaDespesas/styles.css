@@ -20,3 +20,12 @@
         margin-top: 15px;
     }
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+  }
+
+  .css-11lq3yg-MuiGrid-root {
+    padding: 0 5px;
+  }
