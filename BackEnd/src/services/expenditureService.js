@@ -25,11 +25,12 @@ async function updateExpenditure(nameExpenditure, amountExpenditure, codUserExpe
     conn.end();
 }
 
-async function findExpenditure() {
+async function findExpenditure(idUser) {
     const conn =  await database.connect();
 
-    const sql = 'SELECT * FROM expenditure_tbl';
-    const [rows] = await conn.query(sql);
+    const sql = 'SELECT * FROM expenditure_tbl where FK_cod_user_expenditure = ?';
+    const dataExpenditure = [idUser];
+    const [rows] = await conn.query(sql, dataExpenditure);
     conn.end();
 
     return rows;

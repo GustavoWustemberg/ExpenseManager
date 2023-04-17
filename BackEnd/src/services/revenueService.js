@@ -24,10 +24,11 @@ async function updateRevenue(codUser, monthlyAmount, extraIncome, idRevenue) {
     conn.end();
 }
 
-async function findRevenue() {
+async function findRevenue(idUser) {
     const conn = await database.connect();
-    const sql = 'SELECT * FROM revenue_tbl';
-    const [rows] = await conn.query(sql);
+    const sql = 'SELECT monthly_amount, extra_income, date_revenue FROM revenue_tbl WHERE FK_cod_user_revenue = ?';
+    const dataRevenue = [idUser];
+    const [rows] = await conn.query(sql, dataRevenue);
     conn.end();
 
     return rows;

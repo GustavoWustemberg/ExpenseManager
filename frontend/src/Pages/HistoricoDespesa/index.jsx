@@ -12,29 +12,29 @@ import './styles.css';
 
 export default function HistoricoDespesas() {
     const [expenditure, setExpenditure] = useState([]);
+    const userId = sessionStorage.getItem('userId');
 
     useEffect(() => {
         async function getExpenditure() {
-            const { data } = await api.get('/expenditure');
+            const { data } = await api.get(`/expenditure/${userId}`);
             setExpenditure(data);
         }
         getExpenditure();
     }, []);
 
-    console.log(expenditure)
-    // const data = newData.map(item => createData(item.day, item.amount_expenditure));
+    console.log(expenditure.length)
 
     function createData(id, data, nome, valor) {
         return { id, data, nome, valor };
     }
-
-    const rows = expenditure.map(expenditure => createData(
+    
+    const rows = expenditure.length < 1 ? 0 : 
+    expenditure.map(expenditure => createData(
         expenditure.expenditure_id,
         formatDate(expenditure.date_expenditure),
         expenditure.name_expenditure,
         expenditure.amount_expenditure,
     ));
-
     function preventDefault(event) {
         event.preventDefault();
     }
@@ -45,7 +45,8 @@ export default function HistoricoDespesas() {
                     <Typography className='p-10' component="h2" variant="h6" color="primary" gutterBottom>
                         Histórico de despesas
                     </Typography>
-                    <Table size="small">
+                    {expenditure.length == 0 ? "Você precisa cadastrar uma despesa" :
+                        <Table size="small">
                         <TableHead>
                             <TableRow>
                                 <TableCell>Data</TableCell>
@@ -62,7 +63,7 @@ export default function HistoricoDespesas() {
                                 </TableRow>
                             ))}
                         </TableBody>
-                    </Table>
+                    </Table>}
                 </React.Fragment>
             </section>
         </div>

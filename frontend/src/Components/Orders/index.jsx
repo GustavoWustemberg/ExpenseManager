@@ -12,10 +12,11 @@ import { formatDate } from '../../Utils/formatDate.js';
 
 export default function Orders() {
   const [expenditure, setExpenditure] = useState([]);
+  const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
     async function getExpenditure() {
-      const { data } = await api.get('/expenditure');
+      const { data } = await api.get(`/expenditure/${userId}`);
       setExpenditure(data);
     }
     getExpenditure();
@@ -23,17 +24,17 @@ export default function Orders() {
 
   console.log(expenditure)
   // const data = newData.map(item => createData(item.day, item.amount_expenditure));
-  
+
   function createData(id, data, nome, valor) {
     return { id, data, nome, valor };
   }
-  
+
   const rows = expenditure.slice(-3).map(expenditure => createData(
     expenditure.expenditure_id,
     formatDate(expenditure.date_expenditure),
     expenditure.name_expenditure,
     expenditure.amount_expenditure,
-  ));  
+  ));
 
   function preventDefault(event) {
     event.preventDefault();

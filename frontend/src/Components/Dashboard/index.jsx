@@ -27,14 +27,20 @@ function DashboardContent(props) {
   };
 
   const [totalRevenue, setTotalRevenue] = useState([]);
+  const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
     async function getAllAmounts() {
-      const { data } = await api.get('/all-amounts');
+      const { data } = await api.get(`/all-amounts/${userId}`);
       const MonthlyAmount = parseFloat(data[0].monthly_amount);
       const ExtraIncome = parseFloat(data[0].extra_income);
       const AmountExpenditure = parseFloat(data[0]['SUM(amount_expenditure)']);
-      setTotalRevenue(MonthlyAmount + ExtraIncome - AmountExpenditure);
+      const allRevenue = MonthlyAmount + ExtraIncome
+      if (MonthlyAmount + ExtraIncome < 1) {
+        setTotalRevenue(0.00);
+      } else {
+        setTotalRevenue(allRevenue - AmountExpenditure);
+      }
     }
     getAllAmounts();
   }, []);
@@ -67,7 +73,10 @@ function DashboardContent(props) {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  {
+                    isNaN(totalRevenue) || totalRevenue < 1 ? "Você precisa cadastrar os seus gastos" :
+                      <Chart />
+                  }
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -86,7 +95,10 @@ function DashboardContent(props) {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  {
+                    isNaN(totalRevenue) || totalRevenue < 1 ? "Você precisa cadastrar os seus gastos" :
+                      <Orders />
+                  }
                 </Paper>
               </Grid>
             </Grid>

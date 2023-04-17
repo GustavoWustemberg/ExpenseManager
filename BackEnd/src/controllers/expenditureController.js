@@ -46,8 +46,9 @@ router.put('/', [
 
 });
 
-router.get('/', async (request, response) => {
-    const results = await db.findExpenditure();
+router.get('/:idUser', async (request, response) => {
+    const { idUser } = request.params;
+    const results = await db.findExpenditure(idUser);
 
     try {
         if (results.length == 0) {

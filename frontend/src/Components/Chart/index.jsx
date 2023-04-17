@@ -10,10 +10,11 @@ import api from '../../Service/index.js';
 
 export default function Chart() {
   const [expenditure, setExpenditure] = useState([]);
+  const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
     async function getExpenditure() {
-      const { data } = await api.get('/expenditure');
+      const { data } = await api.get(`/expenditure/${userId}`);
       setExpenditure(data);
     }
     getExpenditure();

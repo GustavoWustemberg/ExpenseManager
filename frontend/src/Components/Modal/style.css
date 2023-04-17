@@ -1,0 +1,24 @@
+.form-modal :is(input, button) {
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.form-modal :is(input) {
+    background: #cfbaba4d;
+}
+.form-modal :is(input):hover {
+    background: #b89d9d4d;
+}
+
+.form-modal :is(button) {
+    background: #444444;
+    color: #f7eaea;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.form-modal :is(button):hover {
+    background: #cfbaba4d;
+    color: #444444;
+}

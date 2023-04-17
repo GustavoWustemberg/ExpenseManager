@@ -16,7 +16,7 @@ function App() {
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         Expense Manager by{' '}
-        <Link color="inherit" href="https://github.com/GustavoWustemberg">
+        <Link color="inherit" rel='nofollow' target='_blank' href="https://github.com/GustavoWustemberg">
           Gustavo Wustemberg
         </Link>{' '}
         {new Date().getFullYear()}

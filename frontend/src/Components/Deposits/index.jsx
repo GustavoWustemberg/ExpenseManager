@@ -15,9 +15,13 @@ export default function Deposits(props) {
   return (
     <React.Fragment>
       <Title>Total de Renda</Title>
-      <Typography component="p" variant="h4">
+      {
+        isNaN(props.totalRevenue) ? "Você precisa cadastrar a sua renda" :
+          <Typography component="p" variant="h4">
         {formattedNumber}
       </Typography>
+      }
+      
       <div>
         <Link color="primary" href="#" onClick={preventDefault}>
           Ver Mais

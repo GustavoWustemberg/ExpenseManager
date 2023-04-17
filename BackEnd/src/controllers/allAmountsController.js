@@ -3,8 +3,9 @@ import db from '../services/allAmountsService.js';
 
 const router = express.Router();
 
-router.get('/', async (request, response) => {
-    const results = await db.findTotalRevenue();
+router.get('/:idUser', async (request, response) => {
+  const {idUser} = request.params;
+    const results = await db.findTotalRevenue(idUser);
   
     try {
         if (results.length == 0) {

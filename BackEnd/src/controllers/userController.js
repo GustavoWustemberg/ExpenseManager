@@ -1,7 +1,7 @@
 import express, { response } from "express";
 import { body, validationResult } from "express-validator";
 import { request } from "express";
-import db from "../services/userservice.js";
+import db from "../services/userService.js";
 import { sendEmail } from "../helpers/createUserEmail.js";
 
 const router = express.Router();

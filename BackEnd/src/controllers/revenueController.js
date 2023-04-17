@@ -40,8 +40,9 @@ router.put('/', async (request, response) => {
   
 });
 
-router.get('/', async (request, response) => {
-  const results = await db.findRevenue();
+router.get('/:idUser', async (request, response) => {
+  const {idUser} = request.params;
+  const results = await db.findRevenue(idUser);
 
   try {
       if (results.length == 0) {
